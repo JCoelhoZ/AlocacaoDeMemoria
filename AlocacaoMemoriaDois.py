@@ -5,23 +5,23 @@ caso = 0
 menorespaco = 0
 menorinicio = 0
 maiorinicio = 0
-
+algoritmo = "First-fit"
 A, B, C, D, E, F, G = 0, 0, 0, 0, 0, 0, 1
 
 def variaveis():
     global A, B, C, D, E, F, memoria
-    if caso == 1:
+    if caso == 0:
         A, B, C, D, E, F = 1, 3, 1, 2, 2, 0
         memoria[1] = "A"
         for i in range(6,9):
             memoria[i] = "B"
 
-    elif caso == 2:
+    elif caso == 1:
         A, B, C, D, E, F = 1, 1, 3, 1, 2, 1
         memoria[2] = "A"
         memoria[6] = "B"
 
-    elif caso == 3:
+    elif caso == 2:
         A, B, C, D, E, F = 1, 1, 2, 3, 2, 1
         memoria[2] = "A"
         memoria[6] = "B"
@@ -37,14 +37,13 @@ def primeiraEscolha():
         else:
             cont = 0
         if cont == tamanho:
-            print("Espaço encontrado!")
             achou = True
             for i in range(tamanho):
                 local = inicio + i
                 memoria[local] = letra
             break
     if not achou:
-        print("Espaço não encontrado :[")
+        print("Espaço não encontrado para programa", letra)
 
 def melhorEscolha():
     global cont, achou, menorinicio
@@ -74,11 +73,11 @@ def melhorEscolha():
         menorinicio = inicio
         menorespaco = cont
     if menorespaco == 0:
-        print("Espaço não encontrado")
+        print("Espaço não encontrado para o programa", letra)
     else:
         for c in range(tamanho):
             memoria[menorinicio + c] = letra
-''
+
 def piorEscolha():
     global cont, achou, maiorinicio
     primeiro = True
@@ -107,14 +106,81 @@ def piorEscolha():
         maiorinicio = inicio
         maiorespaco = cont
     if maiorespaco == 0:
-        print("Espaço não encontrado :[")
+        print("Espaço não encontrado para o programa", letra)
     else:
         for i in range(tamanho):
             memoria[maiorinicio + i] = letra
 
 print(A, B, C, D, E, F)
 print(memoria)
+print("==========================\n")
+for caso in range(3):
+    memoria = [" "] * espaco
+    variaveis()
 
+    for opcao in range(3):
+
+        print("\nCaso:", (caso+1), "Algoritmo: ", algoritmo)
+        print(memoria)
+        if opcao == 0:
+            algoritmo = "First-fit"
+            for tam in range(3):
+                achou = False
+                cont = 0
+                if tam == 0:
+                    letra="C"
+                    tamanho = C
+                elif tam == 1:
+                    letra = "D"
+                    tamanho = D
+                elif tam == 2:
+                    letra = "E"
+                    tamanho = E
+                primeiraEscolha()
+                print("executando first-fit")
+                print(memoria)
+        elif opcao == 1:
+            algoritmo = "Best-fit"
+            for tam in range(4):
+                achou = False
+                cont = 0
+                if tam == 1:
+                    letra = "C"
+                    tamanho = C
+                elif tam == 2:
+                    letra = "D"
+                    tamanho = D
+                elif tam == 3:
+                    letra = "E"
+                    tamanho = E
+                elif tam == 4:
+                    letra = "F"
+                    tamanho = F
+                melhorEscolha()
+                print("executando best-fit")
+                print(memoria)
+        elif opcao == 2:
+            algoritmo = "Worst-fit"
+            for tam in range(4):
+                achou = False
+                cont = 0
+                if tam == 1:
+                    letra = "C"
+                    tamanho = C
+                elif tam == 2:
+                    letra = "D"
+                    tamanho = D
+                elif tam == 3:
+                    letra = "E"
+                    tamanho = E
+                elif tam == 4:
+                    letra = "F"
+                    tamanho = F
+                piorEscolha()
+                print("executando worst-fit")
+                print(memoria)
+        print("====================")
+'''
 while(caso != 4):
     opcao = 0
     memoria = [" "] * 10
@@ -209,3 +275,4 @@ while(caso != 4):
                 print("Digite um dos algoritmos pelo número deles.")
     else:
         print("Escolha um dos casos: 1, 2 ou 3, ou digite 4 para sair do programa.")
+'''
